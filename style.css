@@ -148,7 +148,7 @@ h2::after {
 
 #start button:hover {
     transform: translateY(-3px);
-    background-color: #fff;
+    background-color: #ffffff;
 }
 
 /* --- SERVICES (Grid Layout) --- */
@@ -593,14 +593,14 @@ nav > a img:hover {
     height: 85px;
     
     object-fit: cover; 
-    border: 3px solid transparent; 
+    border: 1px solid transparent; 
     transition: all 0.3s ease;
 }
 
 #logo-link:hover img {
     transform: scale(1.1); 
     border-color: #00d2ff; 
-    box-shadow: 0 0 15px rgba(0, 210, 255, 0.6); 
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.6); 
 }
 
 /* --- COOKIE BANNER --- */
