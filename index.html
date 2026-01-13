@@ -9,18 +9,6 @@
 </head>
 <body>
 
-    <header>
-        <nav>
-            <img src="logo.jpg" alt="PC-Creations Logo" width="100"> 
-                <ul>
-                    <li><a href="#start">Home</a></li> 
-                    <li><a href="#services">Leistungen</a></li>
-                    <li><a href="faq.html">FAQ</a></li>
-                    <li><a href="#contact">Kontakt</a></li>
-                </ul>
-        </nav>
-    </header>
-
     <main>
         <section id="start">
             <h1>Ihr Partner für IT-Lösungen & PC-Konfigurationen</h1>
@@ -96,6 +84,9 @@
                 <p>Schildern Sie kurz Ihr Anliegen, ich melde mich schnellstmöglich.</p>
                 
                 <form id="my-form" action="https://formspree.io/f/mgoowwjp" method="POST">
+                    
+                    <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off">
+
                     <div class="name-row">
                         <div class="input-group">
                             <label for="vorname">Vorname <span class="required">*</span></label>
@@ -114,8 +105,8 @@
                     <label for="phone">Telefon (optional)</label>
                     <input type="tel" id="phone" name="phone" placeholder="+43 650 ...">
 
-                    <label for="message">Ihre Nachricht</label>
-                    <textarea id="message" name="message" rows="4" placeholder="Ich brauche Hilfe bei..."></textarea>
+                    <label for="message">Ihre Nachricht <span class="required">*</span></label>
+                    <textarea id="message" name="message" rows="4" placeholder="Ich brauche Hilfe bei..." required></textarea>
 
                     <p class="form-info">
                         <span class="required">*</span> Pflichtfelder
@@ -151,6 +142,7 @@
         </p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="layout.js"></script> <script src="script.js"></script>
+    
 </body>
 </html>

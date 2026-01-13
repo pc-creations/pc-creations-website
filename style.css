@@ -484,3 +484,133 @@ footer a:hover {
     color: #00d2ff; /* Deine Akzentfarbe beim Drüberfahren */
     text-decoration: underline;
 }
+
+/* =========================================
+   MOBILE OPTIMIERUNG (Responsive Design)
+   ========================================= */
+
+@media (max-width: 768px) {
+    
+    /* 1. VERHINDERN VOM SEITLICHEN SCROLLEN (Weißer Rand) */
+    html, body {
+        overflow-x: hidden; /* Schneidet alles ab, was seitlich übersteht */
+        width: 100%;
+        position: relative;
+    }
+
+    /* 2. HEADER ANPASSEN (Logo oben, Menü unten drunter) */
+    nav {
+        flex-direction: column; /* Elemente untereinander statt nebeneinander */
+        padding: 15px 10px;
+    }
+
+    nav ul {
+        flex-wrap: wrap;        /* Erlaubt den Links, in die nächste Zeile zu rutschen */
+        justify-content: center; /* Zentriert die Links */
+        gap: 10px;              /* Weniger Abstand zwischen den Links */
+        margin-top: 15px;       /* Abstand zum Logo */
+        width: 100%;
+    }
+
+    nav a {
+        font-size: 0.85rem;     /* Schrift etwas kleiner machen */
+        padding: 8px 10px;      /* Buttons etwas kompakter */
+        display: inline-block;  /* Wichtig für Padding */
+    }
+
+    /* 3. HAUPTBEREICH (MAIN) KOMPAKTER MACHEN */
+    main {
+        padding: 20px 15px;     /* Weniger Innenabstand an den Seiten */
+        margin: 10px auto;
+        width: 90%;             /* Damit es sicher auf den Schirm passt */
+    }
+
+    /* 4. SCHRIFTGRÖSSEN ANPASSEN */
+    h1 {
+        font-size: 1.6rem !important; /* Überschrift kleiner */
+    }
+    
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    /* 5. SERVICES GRID (Eins nach dem anderen) */
+    .services-grid {
+        grid-template-columns: 1fr; /* Zwingt die Boxen in eine einzelne Spalte */
+        padding: 0 10px;
+    }
+
+    /* 6. MODAL / KONTAKTFORMULAR MOBIL */
+    .modal-content {
+        width: 95%;             /* Fast volle Breite nutzen */
+        margin: 15% auto;       /* Etwas mehr Abstand oben */
+        padding: 20px;
+    }
+    
+    .name-row {
+        flex-direction: column; /* Vorname/Nachname untereinander */
+        gap: 0;
+    }
+    
+    /* Bilder responsive machen */
+    img {
+        max-width: 100%;    /* Bild darf nie breiter sein als sein Container */
+        height: auto;       /* Höhe passt sich automatisch an */
+    }
+}
+
+/* Styling für den Logo-Link im Header */
+nav > a {
+    display: flex;
+    text-decoration: none;
+    border: none;
+}
+nav > a img {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+nav > a img:hover {
+    transform: scale(1.05);
+}
+
+/* =========================================
+   LOGO SPEZIAL-STYLES
+   ========================================= */
+
+/* 1. Den Container (den Link aussenrum) neutralisieren */
+#logo-link {
+    /* Verhindert das blaue Quadrat beim Drüberfahren */
+    background-color: transparent !important; 
+    /* Entfernt eventuelles Padding, das die Box größer macht */
+    padding: 0 !important; 
+    display: flex;
+    align-items: center;
+}
+
+/* 2. Das Bild selbst rund machen */
+#logo-link img {
+    /* Macht das Bild kreisrund */
+    border-radius: 50%; 
+    
+    /* Sicherstellen, dass es ein perfekter Kreis ist, 
+       auch wenn das Originalbild vielleicht leicht rechteckig ist */
+    width: 100px;  /* Deine gewünschte Größe */
+    height: 100px; /* Gleiche Höhe wie Breite ist wichtig für Kreis! */
+    object-fit: cover; /* Schneidet das Bild notfalls zurecht, ohne es zu verzerren */
+    
+    /* Vorbereitung für den Hover-Effekt (weicher Übergang) */
+    border: 3px solid transparent; /* Unsichtbarer Rand als Platzhalter */
+    transition: all 0.3s ease;
+}
+
+/* 3. Der neue Hover-Effekt NUR für das Bild */
+#logo-link:hover img {
+    /* Leichter Zoom */
+    transform: scale(1.1); 
+    
+    /* Statt blauem Hintergrund: Ein leuchtender, runder Rand */
+    border-color: #00d2ff; 
+    
+    /* Optional: Ein zusätzlicher leuchtender "Glow"-Effekt aussenrum */
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.6); 
+}
