@@ -154,7 +154,7 @@ h2::after {
 }
 
 #start button:hover {
-    transform: translateY(-3px);
+    transform: scale(1.05);
     background-color: #ffffff;
 }
 
@@ -185,9 +185,28 @@ article:hover {
 }
 
 .service-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-    display: block;
+    margin-bottom: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: rgba(0, 210, 255, 0.1);
+    color: #1a0b2e;
+    transition: all 0.3s ease;
+}
+
+.service-icon svg {
+    width: 35px;
+    height: 35px;
+    fill: currentColor;
+}
+
+article:hover .service-icon {
+    background-color: #1a0b2e;
+    color: #00d2ff;
+    transform: scale(1.1);
 }
 
 article h3 {
