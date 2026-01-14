@@ -23,63 +23,56 @@ document.addEventListener("DOMContentLoaded", function() {
     document.body.insertAdjacentHTML("afterbegin", headerHTML);
 
     // ==========================================
-    // 2. AKTIVE SEITE ERKENNEN (Button blau machen)
+    // 2. AKTIVE SEITE ERKENNEN
     // ==========================================
     const path = window.location.pathname;
-    const page = path.split("/").pop(); // Holt z.B. "faq.html"
+    const page = path.split("/").pop(); 
 
-    // Alle active-Klassen entfernen
     const links = document.querySelectorAll("nav ul li a");
     links.forEach(link => link.classList.remove("active"));
 
     if (page === "faq.html") {
-        document.getElementById("nav-faq").classList.add("active");
+        const faqLink = document.getElementById("nav-faq");
+        if(faqLink) faqLink.classList.add("active");
     }
 
     // ==========================================
     // 3. FLACKERN VERHINDERN (Smart Link)
     // ==========================================
-    
-    // Prüfen: Sind wir gerade auf der Startseite?
-    // (index.html oder einfach nur "/" bei GitHub Pages)
     const isHome = page === "index.html" || page === "" || page === "/";
 
     if (isHome) {
-        // Wir suchen das Logo UND den Home-Text-Link
         const homeLinks = document.querySelectorAll('a[href="index.html"]');
-
         homeLinks.forEach(link => {
             link.addEventListener("click", function(event) {
-                // STOPP! Nicht neu laden!
                 event.preventDefault();
-                
-                // Stattdessen weich nach oben scrollen
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-                
-                // URL in der Adresszeile "säubern" (falls z.B. #contact da stand)
+                window.scrollTo({ top: 0, behavior: "smooth" });
                 history.pushState(null, null, "index.html");
             });
         });
     }
 
     // ==========================================
-    // 4. COOKIE BANNER HINZUFÜGEN
+    // 4. COOKIE BANNER HINZUFÜGEN (Optimiert & Transparent)
     // ==========================================
     const cookieHTML = `
     <div id="cookie-banner" style="display: none;">
         <div class="cookie-content">
-            <h3>🍪 Cookie-Einstellungen</h3>
+            <h3>🍪 Datenschutzeinstellungen</h3>
             <p>
-                Wir nutzen Cookies, um die Website zu verbessern. 
-                Einige sind technisch notwendig, andere helfen uns bei der Analyse.
-                <a href="datenschutz.html">Mehr erfahren</a>.
+                Wir verwenden Cookies und ähnliche Technologien auf unserer Website. Einige von ihnen sind essenziell (z. B. für die Speicherung Ihrer Entscheidung), während andere uns helfen, unser Online-Angebot zu verbessern (<strong>Statistik / Google Analytics</strong>).
             </p>
+            <p>
+                <strong>Hinweis zur Datenverarbeitung in den USA:</strong> Wenn Sie auf "Alle akzeptieren" klicken, willigen Sie zugleich ein, dass Ihre Daten in den USA verarbeitet werden (z. B. durch Google). US-Behörden könnten theoretisch auf diese Daten zugreifen.
+            </p>
+            <p class="cookie-links-text">
+                Sie können Ihre Auswahl jederzeit unter <a href="datenschutz.html">Datenschutz</a> widerrufen.
+                Weitere Informationen finden Sie im <a href="impressum.html">Impressum</a>.
+            </p>
+            
             <div class="cookie-buttons">
+                <button id="cookie-decline">Nur notwendige Cookies</button>
                 <button id="cookie-accept">Alle akzeptieren</button>
-                <button id="cookie-decline">Nur notwendige</button>
             </div>
         </div>
     </div>
@@ -87,49 +80,57 @@ document.addEventListener("DOMContentLoaded", function() {
     document.body.insertAdjacentHTML("beforeend", cookieHTML);
 
     // ==========================================
-    // 5. COOKIE LOGIK (Consent Manager)
+    // 5. COOKIE & TRACKING LOGIK
     // ==========================================
 
     const banner = document.getElementById("cookie-banner");
     const acceptBtn = document.getElementById("cookie-accept");
     const declineBtn = document.getElementById("cookie-decline");
 
-    // Funktion: Externe Skripte laden (z.B. Google Analytics)
+    // --- Die Google Analytics Funktion (Wird erst bei Zustimmung geladen) ---
     function loadAnalytics() {
         console.log("Analytics Cookies erlaubt - Lade Tracking...");
-        // HIER kommt später dein Google Analytics Code rein!
-        // Beispiel:
-        // let script = document.createElement('script');
-        // script.src = "https://www.googletagmanager.com/gtag/js?id=DEIN-ID";
-        // document.head.appendChild(script);
+        
+        // 1. Skript-Tag erstellen
+        let script = document.createElement('script');
+        script.async = true;
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-6NJ2MFR660"; // Deine ID
+        document.head.appendChild(script);
+
+        // 2. Konfiguration starten
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-6NJ2MFR660', { 'anonymize_ip': true });
     }
 
     // Prüfen: Wurde schon eine Entscheidung getroffen?
     const consent = localStorage.getItem("cookieConsent");
 
     if (!consent) {
-        // Noch keine Entscheidung -> Banner anzeigen
+        // Keine Entscheidung bisher -> Banner zeigen
         if(banner) banner.style.display = "block";
     } else if (consent === "accepted") {
         // Schon erlaubt -> Analytics direkt laden
         loadAnalytics();
     }
 
-    // Klick auf "Akzeptieren"
+    // Klick auf "Alle akzeptieren"
     if (acceptBtn) {
         acceptBtn.addEventListener("click", function() {
             localStorage.setItem("cookieConsent", "accepted");
-            banner.style.display = "none";
-            loadAnalytics(); // Jetzt starten!
+            if(banner) banner.style.display = "none";
+            loadAnalytics(); // Tracking starten!
         });
     }
 
-    // Klick auf "Ablehnen" (Nur notwendige)
+    // Klick auf "Ablehnen"
     if (declineBtn) {
         declineBtn.addEventListener("click", function() {
             localStorage.setItem("cookieConsent", "declined");
-            banner.style.display = "none";
-            // KEIN loadAnalytics() aufrufen!
+            if(banner) banner.style.display = "none";
+            // Hier passiert NICHTS weiter. Kein Google Code wird geladen.
         });
     }
 });

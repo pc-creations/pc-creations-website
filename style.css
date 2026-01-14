@@ -173,7 +173,7 @@ article {
 }
 
 article:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.08);
     border-color: #00d2ff;
 }
@@ -265,13 +265,13 @@ article p {
 }
 
 #contact li:hover {
-    transform: scale(1.02);
+    transform: scale(1.04);
     background-color: #fff;
     border-color: #00d2ff;
 }
 
 #contact a {
-    color: #0077b5;
+    color: #008cac;
     text-decoration: none;
     font-weight: bold;
 }
@@ -598,95 +598,114 @@ nav > a img:hover {
 }
 
 #logo-link:hover img {
-    transform: scale(1.1); 
+    transform: scale(1.05); 
     border-color: #00d2ff; 
-    box-shadow: 0 0 10px rgba(0, 210, 255, 0.6); 
+    /*box-shadow: 0 0 10px rgba(0, 210, 255, 0.6);*/
 }
 
-/* --- COOKIE BANNER --- */
+/* --- COOKIE BANNER (DSGVO Konform) --- */
 #cookie-banner {
     position: fixed;
     bottom: 20px;
     left: 20px;
     right: 20px;
-    max-width: 500px; /* Nicht zu breit auf großen Schirmen */
+    max-width: 600px; /* Etwas breiter für den Text */
     background-color: #fff;
     border-left: 5px solid #00d2ff; /* Dein Cyan-Akzent */
     border-radius: 8px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-    padding: 20px;
-    z-index: 9999; /* Immer ganz oben */
+    box-shadow: 0 5px 30px rgba(0,0,0,0.2);
+    padding: 25px;
+    z-index: 9999;
     font-family: 'Segoe UI', sans-serif;
     animation: slideUp 0.5s ease;
+    font-size: 0.95rem; /* Gut lesbare Schriftgröße */
+    line-height: 1.5;
 }
 
 #cookie-banner h3 {
     margin-top: 0;
-    text-align: left;
-    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    color: #1a0b2e;
 }
 
 #cookie-banner p {
-    font-size: 0.9rem;
-    color: #555;
+    color: #444;
     margin-bottom: 15px;
 }
 
-#cookie-banner a {
-    color: #1a0b2e;
+#cookie-banner strong {
+    color: #2b1055;
+}
+
+/* Links im Text */
+.cookie-links-text a {
+    color: #0077b5;
     text-decoration: underline;
 }
 
+/* Button Container */
 .cookie-buttons {
     display: flex;
-    gap: 10px;
-    justify-content: flex-end;
+    gap: 15px;
+    justify-content: flex-end; /* Rechtsbündig */
+    margin-top: 20px;
+    flex-wrap: wrap; /* Falls der Platz am Handy eng wird */
 }
 
-#cookie-accept {
-    background-color: #1a0b2e; /* Deine Hauptfarbe */
-    color: white;
-    border: none;
-    padding: 8px 16px;
+/* Buttons Styling - Beide gut sichtbar */
+#cookie-accept, #cookie-decline {
+    padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    flex: 1; /* Beide Buttons nehmen gleich viel Platz ein (Mobil) */
+    text-align: center;
+    transition: all 0.2s ease;
 }
 
+/* Button: Alle akzeptieren */
+#cookie-accept {
+    background-color: #1a0b2e; 
+    color: white;
+    border: 2px solid #1a0b2e;
+}
 #cookie-accept:hover {
     background-color: #00d2ff;
+    border-color: #00d2ff;
     color: #1a0b2e;
 }
 
+/* Button: Nur notwendige (Gleichwertig, aber visuell unterscheidbar) */
 #cookie-decline {
-    background-color: transparent;
-    border: 1px solid #ccc;
-    color: #555;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
+    background-color: white;
+    color: #1a0b2e;
+    border: 2px solid #ccc; /* Deutlicher Rand statt unsichtbar */
 }
-
 #cookie-decline:hover {
-    border-color: #333;
-    color: #333;
+    border-color: #1a0b2e;
+    background-color: #f0f0f0;
 }
 
+/* Animation */
 @keyframes slideUp {
     from { transform: translateY(100px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
 
-/* Mobil-Optimierung */
+/* Mobile Optimierung */
 @media (max-width: 600px) {
     #cookie-banner {
         left: 10px;
         right: 10px;
         bottom: 10px;
+        padding: 20px;
     }
     .cookie-buttons {
-        flex-direction: column;
+        flex-direction: column-reverse; /* "Alle akzeptieren" rutscht nach oben */
     }
     #cookie-accept, #cookie-decline {
-        width: 100%;
+        width: 100%; /* Volle Breite am Handy */
     }
 }
