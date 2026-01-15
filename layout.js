@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <p>
                 Wir nutzen Cookies und externe Dienste. Einige sind essenziell (für die Funktion der Seite). 
                 Andere helfen uns, diese Webseite zu verbessern (Statistiken).
-                Da wir <strong>Google Analytics</strong> nutzen, können Daten in die USA übertragen werden. 
+                Da wir <strong>Google Analytics</strong> und <strong>Google Maps</strong> nutzen, können Daten in die USA übertragen werden. 
                 Mit Klick auf "Alle akzeptieren" willigen Sie in diese Verarbeitung ein.
             </p>
             <p class="cookie-links-text">
