@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <header>
         <nav>
             <a href="index.html" id="logo-link">
-                <img src="logo.jpg" alt="PC-Creations Logo" width="100"> 
+                <img src="logo.jpg" alt="PC-Creations Logo" width="100">
             </a>
             
             <ul>
@@ -105,9 +105,23 @@ document.addEventListener("DOMContentLoaded", function() {
     `;
     document.body.insertAdjacentHTML("beforeend", cookieHTML);
 
-    const banner = document.getElementById("cookie-banner");
-    const acceptBtn = document.getElementById("cookie-accept");
-    const declineBtn = document.getElementById("cookie-decline");
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied'
+    });
+
+    let script = document.createElement('script');
+    script.async = true;
+    script.src = "https://www.googletagmanager.com/gtag/js?id=G-6NJ2MFR660";
+    document.head.appendChild(script);
+
+    gtag('js', new Date());
+    gtag('config', 'G-6NJ2MFR660', { 'anonymize_ip': true });
 
     function loadGoogleMaps() {
         const iframe = document.getElementById("google-map-iframe");
@@ -118,54 +132,58 @@ document.addEventListener("DOMContentLoaded", function() {
             iframe.style.display = "block";
             iframe.removeAttribute("data-src");
         }
-
         if (placeholder) {
             placeholder.style.display = "none";
         }
     }
 
-    function loadAnalytics() {
-        console.log("Analytics loading...");
-        let script = document.createElement('script');
-        script.async = true;
-        script.src = "https://www.googletagmanager.com/gtag/js?id=G-6NJ2MFR660";
-        document.head.appendChild(script);
-
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-6NJ2MFR660', { 'anonymize_ip': true });
-
-        loadGoogleMaps();
-    }
-
-    const consent = localStorage.getItem("cookieConsent");
+    const banner = document.getElementById("cookie-banner");
+    const acceptBtn = document.getElementById("cookie-accept");
+    const declineBtn = document.getElementById("cookie-decline");
     
-    if (!consent) {
+    const consent = localStorage.getItem("cookieConsent");
+
+    if (consent === "accepted") {
+        gtag('consent', 'update', {
+            'ad_storage': 'granted',
+            'ad_user_data': 'granted',
+            'ad_personalization': 'granted',
+            'analytics_storage': 'granted'
+        });
+        loadGoogleMaps();
+    } else if (consent === "declined") {
+        if(banner) banner.style.display = "none";
+    } else {
         if(banner) banner.style.display = "block";
-    } 
-    else if (consent === "accepted") {
-        loadAnalytics();
     }
 
     if (acceptBtn) {
         acceptBtn.addEventListener("click", function() {
             localStorage.setItem("cookieConsent", "accepted");
             if(banner) banner.style.display = "none";
-            loadAnalytics();
+            
+            gtag('consent', 'update', {
+                'ad_storage': 'granted',
+                'ad_user_data': 'granted',
+                'ad_personalization': 'granted',
+                'analytics_storage': 'granted'
+            });
+            
+            loadGoogleMaps();
         });
     }
 
     if (declineBtn) {
         declineBtn.addEventListener("click", function() {
-            const wasAccepted = localStorage.getItem("cookieConsent") === "accepted";
-            
             localStorage.setItem("cookieConsent", "declined");
             if(banner) banner.style.display = "none";
-
-            if (wasAccepted) {
-                location.reload(); 
-            }
+            
+            gtag('consent', 'update', {
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'analytics_storage': 'denied'
+            });
         });
     }
 

@@ -21,6 +21,15 @@
     <meta name="theme-color" content="#1a0b2e">
 
     <link rel="stylesheet" href="style.css">
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+    (function(){
+        emailjs.init({
+            publicKey: "q7jESIvscNX8JzD7w",
+        });
+    })();
+    </script>
 </head>
 
 <body>
@@ -147,8 +156,7 @@
                 <h2>Anfrage senden</h2>
                 <p>Schildern Sie kurz Ihr Anliegen, ich melde mich schnellstmöglich.</p>
                 
-                <form id="my-form" action="https://formspree.io/f/mgoowwjp" method="POST">
-                    
+                <form id="contact-form">
                     <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off">
 
                     <div class="name-row">

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    
+
     const modal = document.getElementById("contact-modal");
     const btn = document.querySelector("#start button"); 
     const closeBtn = document.getElementsByClassName("close-btn")[0]; 
@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const formContainer = document.getElementById("form-container");
     const successContainer = document.getElementById("success-container");
     
-    const form = document.getElementById("my-form");
+    const form = document.getElementById("contact-form");
     const errorMsg = document.getElementById("form-error-msg");
 
     if (btn) {
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (form) {
-        form.addEventListener("submit", async function(event) {
+        form.addEventListener("submit", function(event) {
             event.preventDefault(); 
             
             const submitBtn = form.querySelector("button[type='submit']");
@@ -74,30 +74,23 @@ document.addEventListener("DOMContentLoaded", function() {
             submitBtn.disabled = true;
             submitBtn.innerText = "Senden...";
 
-            fetch(event.target.action, {
-                method: form.method,
-                body: formData,
-                headers: { 'Accept': 'application/json' }
-            }).then(response => {
-                if (response.ok) {
+            emailjs.sendForm('service_2oe8qfd', 'template_97p9mzd', this)
+                .then(function() {
+                    console.log('E-Mail erfolgreich gesendet!');
                     formContainer.style.display = "none";
                     successContainer.style.display = "block";
-                    document.querySelector('.modal-content').scrollTop = 0;
-                } else {
-                    response.json().then(data => {
-                        if (Object.hasOwn(data, 'errors')) {
-                            errorMsg.innerHTML = data["errors"].map(error => error["message"]).join(", ");
-                        } else {
-                            errorMsg.innerHTML = "Oops! Es gab ein Problem beim Senden.";
-                        }
-                    });
-                }
-            }).catch(error => {
-                errorMsg.innerHTML = "Netzwerkfehler. Bitte später erneut versuchen.";
-            }).finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerText = "Absenden";
-            });
+                    const modalContent = document.querySelector('.modal-content');
+                    if(modalContent) modalContent.scrollTop = 0;
+                    
+                    form.reset();
+                }, function(error) {
+                    console.log('Fehler beim Senden:', error);
+                    errorMsg.innerHTML = "Es gab ein technisches Problem. Bitte versuchen Sie es später noch einmal oder schreiben Sie mir direkt per E-Mail.";
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = "Absenden";
+                });
         });
     }
 });
