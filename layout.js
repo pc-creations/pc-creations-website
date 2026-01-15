@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+
     const headerHTML = `
     <header>
         <nav>
@@ -108,6 +109,21 @@ document.addEventListener("DOMContentLoaded", function() {
     const acceptBtn = document.getElementById("cookie-accept");
     const declineBtn = document.getElementById("cookie-decline");
 
+    function loadGoogleMaps() {
+        const iframe = document.getElementById("google-map-iframe");
+        const placeholder = document.getElementById("map-placeholder");
+
+        if (iframe && iframe.getAttribute("data-src")) {
+            iframe.src = iframe.getAttribute("data-src");
+            iframe.style.display = "block";
+            iframe.removeAttribute("data-src");
+        }
+
+        if (placeholder) {
+            placeholder.style.display = "none";
+        }
+    }
+
     function loadAnalytics() {
         console.log("Analytics loading...");
         let script = document.createElement('script');
@@ -119,12 +135,16 @@ document.addEventListener("DOMContentLoaded", function() {
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-6NJ2MFR660', { 'anonymize_ip': true });
+
+        loadGoogleMaps();
     }
 
     const consent = localStorage.getItem("cookieConsent");
+    
     if (!consent) {
         if(banner) banner.style.display = "block";
-    } else if (consent === "accepted") {
+    } 
+    else if (consent === "accepted") {
         loadAnalytics();
     }
 
@@ -146,6 +166,14 @@ document.addEventListener("DOMContentLoaded", function() {
             if (wasAccepted) {
                 location.reload(); 
             }
+        });
+    }
+
+    const loadMapBtn = document.getElementById("load-map-btn");
+    if (loadMapBtn) {
+        loadMapBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            loadGoogleMaps();
         });
     }
 
