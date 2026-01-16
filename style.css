@@ -489,7 +489,6 @@ input:focus, textarea:focus {
     box-shadow: 0 0 5px rgba(0, 210, 255, 0.3);
 }
 
-/* Modal Buttons */
 .modal button {
     margin-top: 25px;
     background-color: #2b1055;
