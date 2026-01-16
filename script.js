@@ -3,47 +3,52 @@ document.addEventListener("DOMContentLoaded", function() {
     const modal = document.getElementById("contact-modal");
     const btn = document.querySelector("#start button"); 
     const closeBtn = document.getElementsByClassName("close-btn")[0]; 
-    
-    const formContainer = document.getElementById("form-container");
-    const successContainer = document.getElementById("success-container");
-    
-    const form = document.getElementById("contact-form");
-    const errorMsg = document.getElementById("form-error-msg");
 
-    if (btn) {
+    if (btn && modal) {
         btn.onclick = function() {
             modal.style.display = "block";
-            resetModal(); 
+            resetFormStates(); 
         }
     }
 
     function closeModal() {
         if(modal) modal.style.display = "none";
-        resetModal();
+        resetFormStates();
     }
 
-    if (closeBtn) {
+    if (closeBtn && modal) {
         closeBtn.onclick = closeModal;
     }
 
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            closeModal();
+    if (modal) {
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
         }
     }
 
-    function resetModal() {
+    function resetFormStates() {
+        const formContainer = document.getElementById("form-container");
+        const successContainer = document.getElementById("success-container");
+        const form = document.getElementById("contact-form");
+        const errorMsg = document.getElementById("form-error-msg");
+
         if(formContainer) formContainer.style.display = "block";   
         if(successContainer) successContainer.style.display = "none"; 
         if(form) form.reset();                            
         if(errorMsg) errorMsg.innerHTML = "";                 
     }
 
+    const form = document.getElementById("contact-form");
     if (form) {
         form.addEventListener("submit", function(event) {
             event.preventDefault(); 
-            
+            const formContainer = document.getElementById("form-container");
+            const successContainer = document.getElementById("success-container");
+            const errorMsg = document.getElementById("form-error-msg");
             const submitBtn = form.querySelector("button[type='submit']");
+
             errorMsg.innerHTML = "";
 
             const formData = new FormData(form);
@@ -52,8 +57,9 @@ document.addEventListener("DOMContentLoaded", function() {
             const honeypot = formData.get("_gotcha");
 
             if (honeypot) {
-                formContainer.style.display = "none";
-                successContainer.style.display = "block";
+                console.log("Spam detected");
+                if(formContainer) formContainer.style.display = "none";
+                if(successContainer) successContainer.style.display = "block";
                 return; 
             }
 
@@ -72,13 +78,15 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             submitBtn.disabled = true;
+            const originalBtnText = submitBtn.innerText;
             submitBtn.innerText = "Senden...";
 
             emailjs.sendForm('service_2oe8qfd', 'template_97p9mzd', this)
                 .then(function() {
                     console.log('E-Mail erfolgreich gesendet!');
-                    formContainer.style.display = "none";
-                    successContainer.style.display = "block";
+                    
+                    if(formContainer) formContainer.style.display = "none";
+                    if(successContainer) successContainer.style.display = "block";
                     const modalContent = document.querySelector('.modal-content');
                     if(modalContent) modalContent.scrollTop = 0;
                     
@@ -89,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 })
                 .finally(() => {
                     submitBtn.disabled = false;
-                    submitBtn.innerText = "Absenden";
+                    submitBtn.innerText = originalBtnText;
                 });
         });
     }

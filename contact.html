@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt - PC-Creations</title>
+    <meta name="description" content="Kontaktieren Sie PC-Creations für IT-Support in Graz. Nutzen Sie das Kontaktformular oder schreiben Sie mir für eine unverbindliche Anfrage.">
+    <meta name="keywords" content="Kontakt PC-Creations, IT Support Anfrage, Termin vereinbaren, PC Hilfe Graz Kontakt">
+    <meta name="author" content="Samuel Traussnig">
+    <link rel="canonical" href="https://pc-creations.github.io/contact.html">
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link rel="apple-touch-icon" href="logo.jpg">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Kontakt aufnehmen - PC-Creations by Samuel">
+    <meta property="og:description" content="Fragen oder Probleme? Schreiben Sie mir einfach eine Nachricht!">
+    <meta property="og:image" content="https://pc-creations.github.io/logo.jpg">
+    <meta property="og:url" content="https://pc-creations.github.io/contact.html">
+    <meta name="theme-color" content="#1a0b2e">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+    (function(){
+        emailjs.init({
+            publicKey: "q7jESIvscNX8JzD7w",
+        });
+    })();
+    </script>
+</head>
+
+<body>
+
+    <main>
+        <h1>Kontaktieren Sie mich</h1>
+        <p style="text-align: center; margin-bottom: 30px; color: #555;">
+            Schildern Sie kurz Ihr Anliegen, ich melde mich schnellstmöglich.
+        </p>
+
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 40px;">
+
+            <div class="contact-form-wrapper" style="margin: 0; width: 100%; max-width: 550px;">
+                <div id="form-container">
+                    <h3 style="margin-top: 0; margin-bottom: 20px; text-align: center;">Nachricht senden</h3>
+                    
+                    <form id="contact-form">
+                        <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off">
+
+                        <div class="name-row">
+                            <div class="input-group">
+                                <label for="vorname">Vorname <span class="required">*</span></label>
+                                <input type="text" id="vorname" name="vorname" required placeholder="Vorname">
+                            </div>
+                            <div class="input-group">
+                                <label for="nachname">Nachname <span class="required">*</span></label>
+                                <input type="text" id="nachname" name="nachname" required placeholder="Nachname">
+                            </div>
+                        </div>
+
+                        <label for="email">E-Mail-Adresse <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required placeholder="beispiel@gmail.com">
+
+                        <label for="phone">Telefon (optional)</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+43 650 ...">
+
+                        <label for="message">Ihre Nachricht <span class="required">*</span></label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Ich brauche Hilfe bei..."></textarea>
+
+                        <button type="submit" class="main-btn" style="width: 100%; margin-top: 25px;">Absenden</button>
+                        
+                        <p id="form-error-msg" style="color: red; text-align: center; margin-top: 10px;"></p>
+                    </form>
+
+                    <p class="form-info" style="text-align: left; margin-top: 15px; margin-bottom: 0;">
+                        <span class="required">*</span> Pflichtfelder
+                    </p>
+                </div>
+
+                <div id="success-container" style="display: none; text-align: center; padding: 50px 0;">
+                    <h2 style="color: #2b1055;">Vielen Dank!</h2>
+                    <p>Ihre Nachricht wurde erfolgreich gesendet.<br>Ich melde mich in Kürze bei Ihnen.</p>
+                    <button onclick="location.reload()" class="main-btn" style="margin-top: 10px;">Neue Nachricht</button>
+                </div>
+            </div>
+
+            <hr style="width: 100%; max-width: 600px; opacity: 0.5;">
+
+            <div class="contact-info" style="text-align: center; width: 100%; max-width: 600px;">
+                
+                <div style="margin-bottom: 25px;">
+                    <h4 style="margin: 0 0 5px 0; color: #2b1055;">E-Mail:</h4>
+                    <a href="mailto:pccreationsbysamuel@gmail.com" style="color: #0077b5; font-size: 1.1rem; text-decoration: none;">
+                        pccreationsbysamuel@gmail.com
+                    </a>
+                </div>
+
+                <div style="margin-bottom: 25px;">
+                    <h4 style="margin: 0 0 5px 0; color: #2b1055;">Standort:</h4>
+                    <p style="margin: 0; color: #444; font-size: 1.1rem;">
+                        Waagner-Biro-Straße 84A<br>
+                        8020 Graz, Österreich
+                    </p>
+                </div>
+
+                <div class="map-container" id="map-wrapper" style="width: 100%; height: 350px; margin: 20px auto;">
+                    <div id="map-placeholder">
+                        <p>Um die Karte zu sehen, akzeptieren Sie bitte die Cookies.</p>
+                        <button id="load-map-btn">Karte laden</button>
+                    </div>
+
+                    <iframe 
+                        id="google-map-iframe"
+                        data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4659.263759435074!2d15.409415877469094!3d47.079082924254614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476e35a667e802bf%3A0xc2109ee96c2d9093!2sWaagner-Biro-Stra%C3%9Fe%2084a%2C%208020%20Graz!5e1!3m2!1sde!2sat!4v1768486140155!5m2!1sde!2sat"
+                        width="100%"
+                        height="100%"
+                        style="border:0; display:none;" 
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="layout.js"></script> 
+    <script src="script.js"></script> 
+</body>
+</html>
