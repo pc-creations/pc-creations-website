@@ -480,3 +480,33 @@ footer {
     .cookie-buttons { flex-direction: column-reverse; }
     #cookie-accept, #cookie-decline { width: 100%; }
 }
+
+/* =========================================
+   10. SERVICES PAGE
+   ========================================= */
+.service-list {
+    text-align: left;
+    margin-top: 15px;
+    padding-left: 20px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.service-list li {
+    margin-bottom: 8px;
+}
+
+/* =========================================
+   11. SPECIAL LINKS (Startseite)
+   ========================================= */
+.more-details-link {
+    color: var(--color-primary);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.more-details-link:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+}
