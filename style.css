@@ -215,7 +215,7 @@ nav {
     height: 85px;
     object-fit: cover;
     transition: transform 0.3s ease, border-color 0.3s;
-    border: 2px solid rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.8);
 }
 #logo-link:hover img { 
     transform: scale(1.05); 
@@ -314,6 +314,7 @@ article:hover .service-icon { background-color: var(--color-dark); color: var(--
     border-radius: 8px;
     border: 1px solid #e1e1e1;
     transition: transform 0.2s;
+    font-size: 1.1rem;
 }
 #contact li:hover { transform: scale(1.04); background-color: #fff; border-color: var(--color-accent); }
 
